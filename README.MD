@@ -4,7 +4,7 @@
 |---|---|
 | Document Owner - Product/Engineering |
 | Status - Draft v1.0 |
-| Tech Stack - react.js (Vite), CSS, leaflet.js, NASA EONET API |
+| Tech Stack - react.js next.js, CSS, leaflet.js, NASA EONET API |
 | Development Environment - VSCODE |
 ---
 
