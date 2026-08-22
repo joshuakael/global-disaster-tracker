@@ -1,4 +1,4 @@
-# Global Disaster Tracker PRD
+# Global Disaster Tracker
 
 | | |
 |---|---|
@@ -14,4 +14,3 @@ The Global Disaster Tracker is a project made by me that will be used to plot na
 
 ### 1.2 Problem Statement
 The application will be used by those interested in monitoring natural disasters (earthquakes, storms, wildfires, floods, etc.) globally at no cost. NASA's EONET API collects this data but has no user-friendly way to view these events visually on a map.
-
