@@ -14,3 +14,10 @@ The Global Disaster Tracker is a project made by me that will be used to plot na
 
 ### 1.2 Problem Statement
 The application will be used by those interested in monitoring natural disasters (earthquakes, storms, wildfires, floods, etc.) globally at no cost. NASA's EONET API collects this data but has no user-friendly way to view these events visually on a map.
+
+### 1.3 React Leaflet Plan
+1. Fetch EONET data -> cache it
+2. User applies filters -> filtered array changes -> react rerenders map
+3. Markers for events that got filtered out automatically get removed
+4. Markers for events in the filtered set update via mutable props
+5. New markers for newly matching events get created fresh
