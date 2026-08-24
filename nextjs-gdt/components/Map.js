@@ -18,7 +18,11 @@ return (
     // for every event in the event array, make a marker for it
     {events.map((event) => (
       // eonet's coordinates are [long, lat] so using coordinates[1] then coordinates[0] results in [lat, long]
-      <Marker icon={icon} position={[
+      <Marker 
+      // key = unique id so markers are tracked across re-renders e.g. when the eventType array changes
+      key={event.id}
+      icon={icon} 
+      position={[
         event.geometry[0].coordinates[1], 
         event.geometry[0].coordinates[0]
         ]}>
