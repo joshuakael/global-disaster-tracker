@@ -12,26 +12,70 @@ export default function Home() {
      const setEvents = stateArray[1];
   */
   const [events, setEvents] = useState([]);
-  
+  const [categories, setCategories] = useState([]);
+  const [eventType, setEventType] = useState(["volcanoes"]);
 
-  async function getEvents() {
-    const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories/volcanoes`);
+  async function getCategories() {
+    const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories`
 
-    // Returns data in json format
+    );
     const data = await res.json();
-    setEvents(data.events);
+    setCategories(data.categories);
   }
-
   /* dependency array is used to make sure getEvents() is only ran once.
     depending on what is in the array the first render, if it is different, then
     the function inside useEffect() runs again
   */
   useEffect(() => {
+    getCategories();
+  }, [])
+
+  async function getEvents() {
+    const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}`);
+
+    // Returns data in json format
+    const data = await res.json();
+    setEvents(data.events);
+  }
+  // eventType will change every time we select a new option the user clicks on
+  useEffect(() => {
     getEvents();
-  },  [])
+  },  [eventType])
 
   // passing events as a prop using client
-  return (<div>
+  return (
+  <div>
+    <div 
+    className="absolute top-3 left-150 z-[1000]">
+      <form>
+        <select 
+        name="eventType" 
+        id="eventType" 
+        onChange={(e) => setEventType(e.target.value)}
+        className="
+        text-neutral-800
+        bg-neutral-200 
+        font-semibold 
+        text-sm
+        outline-none
+        border-none
+        focus:ring-2
+        focus:ring-neutral-600
+        transition
+        p-2
+        rounded-lg
+        shadow">
+        {categories.map((category) => (
+          <option value={category.id} className="text-neutral-800 text-sm font-semibold"
+          
+          >
+            {category.title}
+          </option>
+        ))}
+          
+        </select>
+      </form>
+    </div>
     <Map events = {events} />
   </div>
   )
