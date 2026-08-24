@@ -66,7 +66,7 @@ export default function Home() {
         rounded-lg
         shadow">
         {categories.map((category) => (
-          <option value={category.id} className="text-neutral-800 text-sm font-semibold"
+          <option value={category.id} key={category.id} className="text-neutral-800 text-sm font-semibold"
           
           >
             {category.title}
