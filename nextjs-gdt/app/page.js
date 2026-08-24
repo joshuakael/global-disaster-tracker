@@ -30,8 +30,8 @@ export default function Home() {
     getEvents();
   },  [])
 
+  // passing events as a prop using client
   return (<div>
-    // passing events as a prop using client
     <Map events = {events} />
   </div>
   )

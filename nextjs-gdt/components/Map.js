@@ -18,9 +18,12 @@ return (
     // for every event in the event array, make a marker for it
     {events.map((event) => (
       // eonet's coordinates are [long, lat] so using coordinates[1] then coordinates[0] results in [lat, long]
-      <Marker icon={icon} position={[event.geometry[0].coordinates[1], event.geometry[0].coordinates[0]]}>
+      <Marker icon={icon} position={[
+        event.geometry[0].coordinates[1], 
+        event.geometry[0].coordinates[0]
+        ]}>
       <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
+        {event.title}
       </Popup>
     </Marker>
     ))}
