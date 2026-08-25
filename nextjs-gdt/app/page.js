@@ -32,10 +32,12 @@ export default function Home() {
 
   async function getEvents() {
     const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}`);
+    
 
     // Returns data in json format
     const data = await res.json();
     setEvents(data.events);
+    console.log(data.events);
   }
   // eventType will change every time we select a new option the user clicks on
   useEffect(() => {

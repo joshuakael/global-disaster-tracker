@@ -1,7 +1,19 @@
 "use client";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css"; 
+import L from "leaflet";
 import icon from "@/components/icon";
+
+function createClusterIcon(cluster) {
+  const count = cluster.getChildCount();
+  
+  return L.divIcon({
+    html: `<div class="cluster-marker">${count}</div>`,
+    className: "",
+    iconSize: L.point(40, 40, true),
+  })
+}
 
 export default function Map({ events }) {
   const position = [51.505, -0.09]
@@ -15,6 +27,10 @@ return (
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
+    <MarkerClusterGroup
+      iconCreateFunction={createClusterIcon}
+      maxClusterRadius={80}
+    >
     // for every event in the event array, make a marker for it
     {events.map((event) => (
       // eonet's coordinates are [long, lat] so using coordinates[1] then coordinates[0] results in [lat, long]
@@ -31,6 +47,7 @@ return (
       </Popup>
     </Marker>
     ))}
+    </MarkerClusterGroup>
   </MapContainer>
 )
 }
