@@ -13,7 +13,7 @@ export default function Home() {
   */
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [eventType, setEventType] = useState(["volcanoes"]);
+  const [eventType, setEventType] = useState("volcanoes");
 
   async function getCategories() {
     const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories`
@@ -22,23 +22,36 @@ export default function Home() {
     const data = await res.json();
     setCategories(data.categories);
   }
-  /* dependency array is used to make sure getEvents() is only ran once.
-    depending on what is in the array the first render, if it is different, then
-    the function inside useEffect() runs again
-  */
-  useEffect(() => {
-    getCategories();
-  }, [])
 
   async function getEvents() {
-    const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}`);
+    const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=open`);
     
 
     // Returns data in json format
     const data = await res.json();
     setEvents(data.events);
     console.log(data.events);
+    console.log(data.events.length)
   }
+
+async function getAllEventsCount() {
+  const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=open`);
+  const data = await res.json();
+  console.log("Total active events: ", data.events.length);
+  return data.events.length;
+}
+
+  /* dependency array is used to make sure getEvents() is only ran once.
+    depending on what is in the array the first render, if it is different, then
+    the function inside useEffect() runs again
+  */
+  useEffect(() => {
+    getCategories();
+    getAllEventsCount();
+  }, [])
+
+  
+
   // eventType will change every time we select a new option the user clicks on
   useEffect(() => {
     getEvents();
