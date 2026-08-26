@@ -31,8 +31,17 @@ return (
       iconCreateFunction={createClusterIcon}
       maxClusterRadius={80}
     >
+    
+    
+    {events
+    
+    .filter((event) => {
+      // filters out events that have corrupted/invalid coordinates
+      const [lng, lat] = event.geometry[0].coordinates;
+      return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+    })
     // for every event in the event array, make a marker for it
-    {events.map((event) => (
+    .map((event) => (
       // eonet's coordinates are [long, lat] so using coordinates[1] then coordinates[0] results in [lat, long]
       <Marker 
       // key = unique id so markers are tracked across re-renders e.g. when the eventType array changes
