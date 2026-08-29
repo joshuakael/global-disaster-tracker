@@ -114,7 +114,7 @@ async function getAllEventsCount() {
       </button>
       {/* settings panel */}
       {settingsOpen && (
-        <div className="mt-2 bg-neutral-200 rounded-lg shadow p-3 flex flex-col gap-2 w-40">
+        <div className="absolute top-full right-0 mt-2 bg-neutral-200 rounded-lg shadow p-3 flex flex-col gap-2 w-40">
           <p className="text-neutral-800 font-semibold text-sm mb-1">Map style</p>
           {["voyager", "light", "dark"].map((style) => (
             <button
