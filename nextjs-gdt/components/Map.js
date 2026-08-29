@@ -15,7 +15,13 @@ function createClusterIcon(cluster) {
   })
 }
 
-export default function Map({ events }) {
+const TILE_URLS = {
+  voyager: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43",
+  light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43",
+  dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43",
+};
+
+export default function Map({ events, mapStyle }) {
   const position = [51.505, -0.09]
 
 return (
@@ -25,7 +31,8 @@ return (
   }}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url='https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43'
+      url={TILE_URLS[mapStyle]}
+      detectRetina={true}
     />
     <MarkerClusterGroup
       iconCreateFunction={createClusterIcon}
