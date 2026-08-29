@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const Map = dynamic(() => import("@/components/map"), {ssr: false}) ;
 // page.js loads in the browser first then returns Map.js
 export default function Home() {
-  /* When using useState, the first element is the current state value and
+  /* when using useState, the first element is the current state value and
      the second element is the updater function, short hand for the following:
 
      const stateArray = useState([]);
@@ -14,6 +14,11 @@ export default function Home() {
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [eventType, setEventType] = useState("volcanoes");
+
+  // controls which carto basemap is currently active
+  const [mapStyle, setMapStyle] = useState("voyager");
+  // controls when settings open
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   async function getCategories() {
     const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories`
@@ -60,8 +65,8 @@ async function getAllEventsCount() {
   // passing events as a prop using client
   return (
   <div>
-    <div 
-    className="absolute top-3 left-150 z-[1000]">
+    {/* category dropdown */}
+    <div className="absolute top-3 left-150 z-[1000]">
       <form>
         <select 
         name="eventType" 
@@ -92,7 +97,43 @@ async function getAllEventsCount() {
         </select>
       </form>
     </div>
-    <Map events = {events} />
+
+    {/* settings button */}
+    <div className="absolute top-3 right-3 z-[1000]">
+      <button
+      onClick={() => setSettingsOpen(!settingsOpen)}
+      className="bg-neutral-200 p-2 rounded-lg shadow hover:bg-neutral-300 transition"
+      aria-label="settings"
+      >
+        {/* gear-icon */}
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+
+      </button>
+      {/* settings panel */}
+      {settingsOpen && (
+        <div className="mt-2 bg-neutral-200 rounded-lg shadow p-3 flex flex-col gap-2 w-40">
+          <p className="text-neutral-800 font-semibold text-sm mb-1">Map style</p>
+          {["voyager", "light", "dark"].map((style) => (
+            <button
+              key={style}
+              onClick={() => setMapStyle(style)}
+              className={`text-left text-sm px-2 py-1 rounded-md capitalize transition ${
+                  mapStyle === style 
+                    ? "bg-neutral-600 text-white" 
+                    : "text-neutral-800 hover:bg-neutral-300"
+                }`}
+              >
+                {style}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <Map events = {events} mapStyle={mapStyle} />
   </div>
   )
 }
