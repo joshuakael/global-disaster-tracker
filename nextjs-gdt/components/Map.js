@@ -25,7 +25,21 @@ export default function Map({ events, mapStyle }) {
   const position = [51.505, -0.09]
 
 return (
-  <MapContainer center={position} zoom={2} minZoom={1.4} maxBounds={[[-90, -180],[90, 180]]} maxBoundsViscosity={0.9} scrollWheelZoom={true} style={{
+  <MapContainer 
+  center={position} 
+  zoom={2} 
+  minZoom={1.4} 
+  maxBounds={[[-90, -180],[90, 180]]} 
+  maxBoundsViscosity={0.9} 
+  scrollWheelZoom={true} 
+  zoomSnap={1} 
+  zoomDelta={0.5} 
+  wheelPxPerZoomLevel={60} 
+  wheelDebounceTime={0}
+  fadeAnimation={true}
+  zoomAnimation={true}
+  preferCanvas={true}
+  style={{
     height: "100vh",
     width: "100vw"
   }}>
