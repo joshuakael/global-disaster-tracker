@@ -66,6 +66,7 @@ async function getAllEventsCount() {
         <select 
         name="eventType" 
         id="eventType" 
+        value={eventType}
         onChange={(e) => setEventType(e.target.value)}
         className="
         text-neutral-800

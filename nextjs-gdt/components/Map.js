@@ -25,7 +25,7 @@ return (
   }}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      url='https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43'
     />
     <MarkerClusterGroup
       iconCreateFunction={createClusterIcon}
