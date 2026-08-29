@@ -15,6 +15,8 @@ export default function Home() {
   const [categories, setCategories] = useState([]);
   const [eventType, setEventType] = useState("volcanoes");
 
+  const [loading, setLoading] = useState(true);
+
   // controls which carto basemap is currently active
   const [mapStyle, setMapStyle] = useState("voyager");
   // controls when settings open
@@ -30,11 +32,11 @@ export default function Home() {
 
   async function getEvents() {
     const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=open`);
-    
-
+    setLoading(true);
     // Returns data in json format
     const data = await res.json();
     setEvents(data.events);
+    setLoading(false);
     console.log(data.events);
     console.log(data.events.length)
   }
@@ -66,13 +68,16 @@ async function getAllEventsCount() {
   return (
   <div>
     {/* category dropdown */}
-    <div className="absolute top-3 left-150 z-[1000]">
+    <div className="absolute top-3 left-160 z-[1000]">
       <form>
         <select 
         name="eventType" 
         id="eventType" 
         value={eventType}
-        onChange={(e) => setEventType(e.target.value)}
+        onChange={(e) => {
+          setLoading(true);
+          setEventType(e.target.value)
+        }}
         className="
         text-neutral-800
         bg-neutral-200 
@@ -97,6 +102,19 @@ async function getAllEventsCount() {
         </select>
       </form>
     </div>
+    
+    {loading && (
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-neutral-200 text-neutral-800 font-semibold text-sm px-4 py-2 rounded-lg shadow">
+        Loading...
+      </div>
+    )}
+
+    {!loading && events.length === 0 && (
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-neutral-200 text-neutral-800 font-semibold text-sm px-4 py-2 rounded-lg shadow">
+        No active events found in this category right now.
+      </div>
+    )
+    }
 
     {/* settings button */}
     <div className="absolute top-3 right-3 z-[1000]">
