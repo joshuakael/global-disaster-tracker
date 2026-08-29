@@ -73,7 +73,15 @@ return (
         event.geometry[0].coordinates[0]
         ]}>
       <Popup>
-        {event.title}
+        <p className="font-semibold mb-1">{event.title}</p>
+        <a
+          href={`https://www.google.com/search?q=${encodeURIComponent(event.title)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline text-sm"
+        >
+          Learn more about this event
+        </a>     
       </Popup>
     </Marker>
     ))}
