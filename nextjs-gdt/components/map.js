@@ -80,7 +80,7 @@ return (
           rel="noopener noreferrer"
           className="text-blue-600 underline text-sm"
         >
-          Learn more about this event
+          Learn more about this event.
         </a>     
       </Popup>
     </Marker>
