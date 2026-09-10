@@ -68,7 +68,7 @@ async function getAllEventsCount() {
   return (
   <div>
     {/* category dropdown */}
-    <div className="absolute top-3 left-160 z-[1000]">
+    <div className="absolute top-3 left-150 z-[1000]">
       <form>
         <select 
         name="eventType" 
