@@ -13,7 +13,7 @@ const faqData = [
     {
         question: "Why are there no active events in some categories?",
         answer: (
-            <>
+            <p className="mt-2 text-sm text-gray-600 whitespace-pre-line">
             This is probably the most asked question I get. This app only shows 'open' events, the ones NASA still considers ongoing. 
             I don't have clear reason for why Droughts, Dust and Haze, Landslides, Manmade, Snow, Temperature Extremes, and Water Color show up via the API,
             but we can assume these categories are manually flagged from satellite imagery rather than fed by a monitoring agency. So for now,
@@ -26,11 +26,11 @@ const faqData = [
             - Severe Storms are directly sourced by JTWC, NOAA_NHC, NASA_HURR and AU_BOM
             - Sea and Lake Ice are directly sourced by BYU_ICE and NATICE
             - Floods are directly sourced by CEMS
-            </>
+            </p>
         ),
     },
     {
-        question: "What is EONET",
+        question: "What is EONET?",
         answer: 
             "Earth Observatory Natural Event Tracker is a NASA API that catalogues natural events worldwide. NASA doesn't generate all of this data, some are combined from trusted sources like the US Geological Survey, into one feed.",
     },
@@ -81,7 +81,7 @@ export default function FaqPanel({ isOpen, onClose }) {
 
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
           <h2 className="text-lg font-semibold">Frequently Asked Questions</h2>
-          <button onClick={onClose} aria-label="Close FAQ panel" className="text-gray-500 hover:text-gray-800">
+          <button onClick={onClose} aria-label="Close FAQ panel" className="p-2 -m-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition>
             ✕
           </button>
         </div>
