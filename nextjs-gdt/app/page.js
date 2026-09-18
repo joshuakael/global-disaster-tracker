@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
+import faqPanel from "@/components/faqPanel";
 const Map = dynamic(() => import("@/components/map"), {ssr: false}) ;
 // page.js loads in the browser first then returns Map.js
 export default function Home() {
@@ -119,7 +120,7 @@ async function getAllEventsCount() {
     }
 
     {/* FAQ button */}
-    <div className="absolute top-3 right-16 z[1000]">
+    <div className="absolute top-3 right-16 z-[1000]">
       <button
         onClick={() => setFaqOpen(true)}
         className="bg-neutral-200 p-2 rounded-lg shadow hover:bg-neutral-300 transition"
@@ -169,7 +170,7 @@ async function getAllEventsCount() {
         </div>
       )}
     </div>
-    <faqPanel isOpen={faqOpen} onClose={() => setFaqOpen(false)} />
+    <FaqPanel isOpen={faqOpen} onClose={() => setFaqOpen(false)} />
 
 
     <Map events = {events} mapStyle={mapStyle} />
