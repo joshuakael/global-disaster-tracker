@@ -21,6 +21,8 @@ export default function Home() {
   const [mapStyle, setMapStyle] = useState("voyager");
   // controls when settings open
   const [settingsOpen, setSettingsOpen] = useState(false);
+  // controls when FAQ panel opens
+  const [faqOpen, setFaqOpen] = useState(false);
 
   async function getCategories() {
     const res = await fetch(`https://eonet.gsfc.nasa.gov/api/v3/categories`
@@ -150,6 +152,7 @@ async function getAllEventsCount() {
         </div>
       )}
     </div>
+
 
     <Map events = {events} mapStyle={mapStyle} />
   </div>
