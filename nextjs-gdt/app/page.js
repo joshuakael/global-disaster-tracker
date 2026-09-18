@@ -122,7 +122,7 @@ async function getAllEventsCount() {
     {/* FAQ button */}
     <div className="absolute top-3 right-16 z-[1000]">
       <button
-        onClick={() => setFaqOpen(true)}
+        onClick={() => setFaqOpen(!faqOpen)}
         className="bg-neutral-200 p-2 rounded-lg shadow hover:bg-neutral-300 transition"
         aria_label="FAQ"
       >

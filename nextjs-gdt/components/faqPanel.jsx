@@ -48,10 +48,36 @@ export default function FaqPanel({ isOpen, onClose }) {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      {/* max-h-[80vh] caps the whole panel's height so it can't grow past the screen */}
-      <div className="flex max-h-[80vh] w-full max-w-lg flex-col rounded-lg bg-white shadow-xl">
-        {/* Header sits outside the scrolling area, so it stays put */}
+        <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 2000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
+      }}
+    >
+        {/* 4:3 window, stopPropagation prevents the window from closing whhen pressing inside of it */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: "min(90vw, 800px)",
+          aspectRatio: "4 / 3",
+          backgroundColor: "white",
+          borderRadius: "0.5rem",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+        }}
+      >
+
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
           <h2 className="text-lg font-semibold">Frequently Asked Questions</h2>
           <button onClick={onClose} aria-label="Close FAQ panel" className="text-gray-500 hover:text-gray-800">
