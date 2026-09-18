@@ -66,6 +66,7 @@ export default function FaqPanel({ isOpen, onClose }) {
         {/* 4:3 window, stopPropagation prevents the window from closing whhen pressing inside of it */}
       <div
         onClick={(e) => e.stopPropagation()}
+        className="text-gray-900"
         style={{
           width: "min(90vw, 800px)",
           aspectRatio: "4 / 3",
