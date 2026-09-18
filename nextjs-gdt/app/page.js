@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
-import faqPanel from "@/components/faqPanel";
+import FaqPanel from "@/components/faqPanel";
 const Map = dynamic(() => import("@/components/map"), {ssr: false}) ;
 // page.js loads in the browser first then returns Map.js
 export default function Home() {
