@@ -13,20 +13,20 @@ const faqData = [
     {
         question: "Why are there no active events in some categories?",
         answer: (
-            <p className="mt-2 text-sm text-gray-600 whitespace-pre-line">
+            <>
             This is probably the most asked question I get. This app only shows 'open' events, the ones NASA still considers ongoing. 
             I don't have clear reason for why Droughts, Dust and Haze, Landslides, Manmade, Snow, Temperature Extremes, and Water Color show up via the API,
             but we can assume these categories are manually flagged from satellite imagery rather than fed by a monitoring agency. So for now,
             this is <strong>unverified</strong>. Earthquakes and Landslides rarely stay 'open' because the shaking event is over in seconds with no ongoing phase.
             All of the reasoning stated in this block of text are my own reasoning and therefore also <strong>unverified</strong>. 
-            now is reserved for notable snowfall events, not regular snowdays, which is also the same casefor Temperature Extremes.
+            Snow is reserved for notable snowfall events, not regular snowdays, which is also the same case for Temperature Extremes.
             
             The following categories are sourced:
             - Volcanoes are directly sourced by SIVolcano, and AVO
             - Severe Storms are directly sourced by JTWC, NOAA_NHC, NASA_HURR and AU_BOM
             - Sea and Lake Ice are directly sourced by BYU_ICE and NATICE
             - Floods are directly sourced by CEMS
-            </p>
+            </>
         ),
     },
     {
@@ -81,7 +81,7 @@ export default function FaqPanel({ isOpen, onClose }) {
 
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
           <h2 className="text-lg font-semibold">Frequently Asked Questions</h2>
-          <button onClick={onClose} aria-label="Close FAQ panel" className="p-2 -m-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition>
+          <button onClick={onClose} aria-label="Close FAQ panel" className="p-2 -m-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition">
             ✕
           </button>
         </div>
@@ -98,7 +98,7 @@ export default function FaqPanel({ isOpen, onClose }) {
                 <span>{openIndex === index ? "−" : "+"}</span>
               </button>
               {openIndex === index && (
-                <p className="mt-2 text-sm text-gray-600">{item.answer}</p>
+                <p className="mt-2 text-sm text-gray-600 whitespace-pre-line">{item.answer}</p>
               )}
             </div>
           ))}
