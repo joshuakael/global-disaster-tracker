@@ -100,7 +100,7 @@ return (
       <Popup>
         <p className="font-semibold mb-1">{event.title}</p>
         <p className="text-xs text-gray-500 mb-1">
-          {new Date(event.geometry[0].date).toLocaleDateString}
+          {new Date(event.geometry[0].date).toLocaleDateString()}
         </p>
         <a
           href={`https://www.google.com/search?q=${encodeURIComponent(event.title)}`}
@@ -134,6 +134,9 @@ return (
         ]}>
       <Popup>
         <p className="font-semibold mb-1">{event.title}</p>
+        <p className="text-xs text-gray-500 mb-1">
+          {new Date(event.geometry[0].date).toLocaleDateString()}
+        </p>
 
           <a href={`https://www.google.com/search?q=${encodeURIComponent(event.title)}`}
           target="_blank"
