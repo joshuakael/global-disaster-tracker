@@ -12,7 +12,10 @@ export default function Home() {
      const events = stateArray[0];
      const setEvents = stateArray[1];
   */
+  const HISTORICAL_DAYS = 365;
+
   const [events, setEvents] = useState([]);
+  const [historicalEvents, setHistoricalEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [eventType, setEventType] = useState("volcanoes");
 
@@ -39,6 +42,18 @@ export default function Home() {
     // Returns data in json format
     const data = await res.json();
     setEvents(data.events);
+
+    if (data.events.length) === 0 {
+      // if no active events, fall back to recent history
+      const histRes = await fetch(
+        `https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=closed&days=${HISTORICAL_DAYS}`
+      );
+      const histData = await histRes.json();
+      setHistoricalEvents(histData.events);
+    } else {
+      setHistoricalEvents([]);
+    }
+
     setLoading(false);
     console.log(data.events);
     console.log(data.events.length)
@@ -112,9 +127,17 @@ async function getAllEventsCount() {
       </div>
     )}
 
-    {!loading && events.length === 0 && (
+    {!loading && events.length === 0 && historicalEvents.length === 0 && (
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-neutral-200 text-neutral-800 font-semibold text-sm px-4 py-2 rounded lg shadow">
+        No active or recent events found in this category
+      </div>
+    )
+
+    }
+
+    {!loading && events.length === 0 && historicalEvents.length > 0 && (
       <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-neutral-200 text-neutral-800 font-semibold text-sm px-4 py-2 rounded-lg shadow">
-        No active events found in this category right now.
+        No active events found in this category right now. Showing events from the past {Math.round(HISTORICAL_DAYS / 30)} months instead.
       </div>
     )
     }
@@ -173,7 +196,7 @@ async function getAllEventsCount() {
     <FaqPanel isOpen={faqOpen} onClose={() => setFaqOpen(false)} />
 
 
-    <Map events = {events} mapStyle={mapStyle} />
+    <Map events = {events} historicalEvents={historicalEvents} mapStyle={mapStyle} />
   </div>
   )
 }
