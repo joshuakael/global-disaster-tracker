@@ -139,7 +139,7 @@ async function getAllEventsCount() {
 
     {!loading && events.length === 0 && historicalEvents.length > 0 && (
       <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-neutral-200 text-neutral-800 font-semibold text-sm px-4 py-2 rounded-lg shadow">
-        No active events found in this category right now. Showing events from the past {HISTORICAL_LIMIT} months instead.
+        No active events found in this category right now. Showing the last {HISTORICAL_LIMIT} recorded events instead.
       </div>
     )
     }
