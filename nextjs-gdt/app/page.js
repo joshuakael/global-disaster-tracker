@@ -43,7 +43,7 @@ export default function Home() {
     const data = await res.json();
     setEvents(data.events);
 
-    if (data.events.length) === 0 {
+    if (data.events.length === 0) {
       // if no active events, fall back to recent history
       const histRes = await fetch(
         `https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=closed&days=${HISTORICAL_DAYS}`
@@ -128,7 +128,7 @@ async function getAllEventsCount() {
     )}
 
     {!loading && events.length === 0 && historicalEvents.length === 0 && (
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-neutral-200 text-neutral-800 font-semibold text-sm px-4 py-2 rounded lg shadow">
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-neutral-200 text-neutral-800 font-semibold text-sm px-4 py-2 rounded-lg shadow">
         No active or recent events found in this category
       </div>
     )
@@ -147,7 +147,7 @@ async function getAllEventsCount() {
       <button
         onClick={() => setFaqOpen(!faqOpen)}
         className="bg-neutral-200 p-2 rounded-lg shadow hover:bg-neutral-300 transition"
-        aria_label="FAQ"
+        aria-label="FAQ"
       >
         {/* question mark icon */}
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
