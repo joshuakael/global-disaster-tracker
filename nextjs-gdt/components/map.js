@@ -15,13 +15,38 @@ function createClusterIcon(cluster) {
   })
 }
 
+function createHistoricalClusterIcon(cluster) {
+  const count = cluster.getChildCount();
+
+  return L.divIcon({
+    html: `<div class="cluster-marker-historical">${count}</div>`,
+    className: "",
+    iconSize: L.point(40, 40, true),
+  })
+}
+
+// new blue dot marker
+const historicalIcon = L.divIcon({
+  html: `<div style="
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #2563eb;
+    border: 2px solid white;
+    box-shadow: 0 0 4px rgba(0,0,0,0.4);
+  "></div>`,
+  className: "",
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
+})
+
 const TILE_URLS = {
   voyager: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43",
   light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43",
   dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_2jmz_1_67cf8f0988300fe71e760d43",
 };
 
-export default function Map({ events, mapStyle }) {
+export default function Map({ events, historicalEvents = [], mapStyle }) {
   const position = [51.505, -0.09]
 
 return (
@@ -86,6 +111,40 @@ return (
     </Marker>
     ))}
     </MarkerClusterGroup>
+
+    <MarkerClusterGroup
+      iconCreateFunction={createHistoricalClusterIcon}
+      maxClusterRadius={80}
+    >
+    {historicalEvents
+    .filter((event) => {
+      const [lng, lat] = event.geometry[0].coordinates;
+      return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+    })
+    .map((event) => (
+      <Marker
+      key={event.id}
+      icon={historicalIcon}
+      position={[
+        event.geometry[0].coordinates[1],
+        event.geometry[0].coordinates[0]
+        ]}>
+      <Popup>
+        <p className="font-semibold mb-1">{event.title}</p>
+
+          <a href={`https://www.google.com/search?q=${encodeURIComponent(event.title)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline text-sm"
+        >
+          Learn more about this event.
+        </a>
+      </Popup>
+      </Marker>
+    ))}
+
+    </MarkerClusterGroup>
+
   </MapContainer>
 )
 }
