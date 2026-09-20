@@ -45,8 +45,9 @@ export default function Home() {
 
     if (data.events.length === 0) {
       // if no active events, fall back to recent history
+      // replace the back tick below with`https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=closed&days=${HISTORICAL_DAYS} for last N days, see const variable for N
       const histRes = await fetch(
-        `https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=closed&days=${HISTORICAL_DAYS}`
+        `https://eonet.gsfc.nasa.gov/api/v3/categories/${eventType}?status=closed&limit=100`
       );
       const histData = await histRes.json();
       setHistoricalEvents(histData.events);
